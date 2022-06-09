@@ -13,6 +13,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(turtlesim REQUIRED)
 
@@ -28,10 +29,16 @@ if(BUILD_TESTING)
 endif()
 
 add_executable(gotox src/go_to_x.cpp)
+add_executable(diff_drive src/simple_diff_drive.cpp)
+add_executable(drive_controller src/simple_drive_controller.cpp)
 ament_target_dependencies(gotox rclcpp std_msgs geometry_msgs turtlesim)
+ament_target_dependencies(diff_drive rclcpp std_msgs geometry_msgs)
+ament_target_dependencies(drive_controller rclcpp geometry_msgs nav_msgs)
 
 install(TARGETS
   gotox
+  diff_drive
+  drive_controller
   DESTINATION lib/${PROJECT_NAME}
 )
 
